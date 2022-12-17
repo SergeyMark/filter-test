@@ -17,20 +17,20 @@ const ref = {
     list: document.querySelector('.js-list-tech')
 }
 
-function createdListFn(){
-    return tech.map((item) => `<li>${item.label}</li>`).join('');
-}
+ref.input.addEventListener("input", inSearchInput);
 
-const createdList = createdListFn();
+const createdList = createdListFn(tech);
+
 ref.list.innerHTML = createdList;
 
-
-ref.input.addEventListener("input", inSearchInput);
-function inSearchInput(event) {
-    const filter = event.target.value;
+function createdListFn(items){
+    return items.map((item) => `<li>${item.label}</li>`).join('');
 }
 
-function copyTechFilter() {
-    
+function inSearchInput(event) {
+    const filter = event.target.value.toLowerCase();
+    const filterInput = tech.filter(itemFilter => itemFilter.label.toLowerCase().includes(filter));
+    const createdList = createdListFn(filterInput);
+    ref.list.innerHTML = createdList; 
 }
 
